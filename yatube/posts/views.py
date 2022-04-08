@@ -13,6 +13,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from posts.models import Post, Group, User
 from posts.forms import PostForm
 
+
 def index(request: HttpRequest) -> HttpResponse:
     """View-функция обработчик. Принимающая на вход объект
     запроса HttpRequest, возвращающая объект ответа HttpResponse.
