@@ -13,7 +13,7 @@ urlpatterns = [
     ),
     path(
         'login/',
-        LoginView.as_view(template_name='users/login.html'),
+        LoginView.as_view(template_name='users/Login.html'),
         name='login'
     ),
 ]
