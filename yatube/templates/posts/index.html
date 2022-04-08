@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class='container py-5'>
+  <h1>Последние обновления на сайте</h1>
+  {% for post in page_obj %}
+  <ul>
+    <li>
+      Автор: {{ post.author }}
+    </li>
+    <li>
+      Дата публикации: {{ post.pub_date|date:'d E Y' }}
+    </li>
+    {% if post.group != None %}
+      <li>
+        {{ post.group }}
+      </li>
+    {% endif %}
+  </ul>
+  <p>{{ post.text }}</p>
+    <a class="btn btn-primary" href="{% url 'posts:post_detail' post.pk %}">
+      Подробная информация
+    </a>
+  {% if post.group %}
+    <a class="btn btn-primary" href="{% url 'posts:group_list' post.group.slug %}">
+      Все записи группы
+    </a>
+  {% endif %}
+  {% if request.user == post.author %}
+    <a class="btn btn-primary" href="{% url 'posts:post_edit' post.pk %}">
+      Редактировать запись
+    </a>
+  {% endif %}
+    <a class="btn btn-primary" href="{% url 'posts:profile' post.author.username %}">
+      Все посты пользователя
+    </a>
+  {% if not forloop.last %}<hr>{% endif %}
+  {% endfor %}
+</div>
+{% include 'posts/includes/paginator.html' %}
+{% endblock %}
