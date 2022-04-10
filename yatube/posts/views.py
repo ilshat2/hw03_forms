@@ -132,6 +132,9 @@ def post_edit(request: HttpRequest, post_id: str) -> HttpResponse:
     if request.method == 'POST':
         form = PostForm(request.POST, instance=post)
         context['form'] = form
+    elif request.method != 'POST':
+        form = PostForm(instance=post)
+        context['form'] = form
     if post.author != request.user:
         return redirect('posts:profile', post.author)
     if not form.is_valid():
