@@ -1,5 +1,4 @@
-{% extends 'base.html' %}
-{% block title %} Записи сообщества {{ group.title }}{% endblock %}
+{% extends "base.html" %}
 {% block content %}
   <div class="container py-5">
     <h1>{{ group.title }}</h1>
@@ -10,7 +9,7 @@
           Автор: {{ post.author }}
         </li>
         <li>
-          Дата публикации: {{ post.pub_date|date:'d E Y' }}
+          Дата публикации: {{ post.pub_date|date:"d E Y" }}
         </li>
       </ul>  
       <p>{{ post.text }}</p>
@@ -23,5 +22,5 @@
       {% if not forloop.last %}<hr>{% endif %}
     {% endfor %}
   </div>
-{% include 'posts/includes/paginator.html' %}
+{% include "posts/includes/paginator.html" %}
 {% endblock %}

@@ -1,14 +1,11 @@
 from datetime import date
+from django.core.handlers.wsgi import WSGIRequest
 
 
-def year(request):
+def year(request: WSGIRequest) -> dict:
     """Функция year возвращающая текущий год,
     отображается в подвале страницы.
     """
-
-    a = date.today()
-    a = str(a)[0:4]
-    a = int(a)
-    d = dict()
-    d[a] = a
-    return {'year': a}
+    year = date.today().year
+    context = {'year': year}
+    return context

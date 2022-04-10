@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block title %} Пост {{ value|truncatechars:30 }}{% endblock %}
 {% block content %}
 <div class="row">
@@ -41,5 +41,5 @@
     {% endif %}
   </article>
 </div>
-{% include 'posts/includes/paginator.html' %}
+{% include "posts/includes/paginator.html" %}
 {% endblock %}

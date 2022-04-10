@@ -11,18 +11,18 @@
     <meta name='msapplication-TileColor' content='#000'>
     <meta name='theme-color' content='#ffffff'>
     <link rel='stylesheet' href="{% static 'css/bootstrap.min.css' %}">
-    <title>{{ title }}</title>
+    {% block titile %}<title>{{ title }}</title>{% endblock %}
   </head>
   <body>
     <header>
-      {% include 'includes/header.html' %}
+      {% include "includes/header.html" %}
     </header>
       <main>
       {% block content %}
       {% endblock %}
     </main> 
-    <footer>
-      {% include 'includes/footer.html' %}
+    <footer class="border-top text-center py-3">
+      {% include "includes/footer.html" %}
     </footer>
   </body>
 </html>
