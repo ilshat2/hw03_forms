@@ -94,22 +94,22 @@ def post_create(request: HttpRequest) -> HttpResponse:
     """
     title = 'Добавить запись'
     groups = Group.objects.all()
+    form = PostForm(request.POST or None)
+    post = form.save(commit=False)
+    post.author = request.user
     context = {
         'title': title,
         'groups': groups,
+        'form': form
     }
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-        context['form'] = form
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            form.save()
-            return redirect('posts:profile', username=request.user.username)
+    if request.method != 'POST':
         return render(request, 'posts/create_post.html', context)
-    form = PostForm()
-    context['form'] = form
-    return render(request, 'posts/create_post.html', context)
+    if request.user != post.author:
+        return render(request, 'posts/create_post.html', context)
+    if not form.is_valid():
+        return render(request, 'posts/create_post.html', context)
+    form.save()
+    return redirect('posts:profile', username=request.user.username)
 
 
 @login_required
@@ -122,23 +122,20 @@ def post_edit(request: HttpRequest, post_id: str) -> HttpResponse:
     groups = Group.objects.all()
     post = get_object_or_404(Post, pk=post_id)
     is_edit = True
-    form = PostForm()
+    form = PostForm(request.POST, instance=post)
+    post.author = request.user
     context = {
         'title': title,
         'groups': groups,
         'post': post,
         'is_edit': is_edit,
+        'form': form
     }
-    if request.method == 'POST':
-        form = PostForm(request.POST, instance=post)
-        context['form'] = form
-    elif request.method != 'POST':
+    if request.method != 'POST':
         form = PostForm(instance=post)
-        context['form'] = form
     if post.author != request.user:
         return redirect('posts:profile', post.author)
     if not form.is_valid():
         return render(request, 'posts/create_post.html', context)
-    post.author = request.user
     form.save()
     return redirect('posts:post_detail', post.pk)
