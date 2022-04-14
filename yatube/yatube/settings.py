@@ -25,7 +25,12 @@ SECRET_KEY = 'xn+49v3@o(o!pk$v=wnwi--35+ggfnjff(g==^f&t_*f99qmx)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '[::1]',
+    'testserver',
+]
 
 
 INSTALLED_APPS = [

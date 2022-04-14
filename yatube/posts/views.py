@@ -94,16 +94,16 @@ def post_create(request: HttpRequest) -> HttpResponse:
     """
     title = 'Добавить запись'
     groups = Group.objects.all()
-    form = PostForm(request.POST or None)
-    post = form.save(commit=False)
-    post.author = request.user
     context = {
         'title': title,
         'groups': groups,
-        'form': form
     }
     if request.method != 'POST':
         return render(request, 'posts/create_post.html', context)
+    form = PostForm(request.POST or None)
+    post = form.save(commit=False)
+    post.author = request.user
+    context['form'] = form
     if request.user != post.author:
         return render(request, 'posts/create_post.html', context)
     if not form.is_valid():
@@ -123,6 +123,8 @@ def post_edit(request: HttpRequest, post_id: str) -> HttpResponse:
     post = get_object_or_404(Post, pk=post_id)
     is_edit = True
     form = PostForm(request.POST, instance=post)
+    if request.method != 'POST':
+        form = PostForm(instance=post)
     post.author = request.user
     context = {
         'title': title,
@@ -131,8 +133,6 @@ def post_edit(request: HttpRequest, post_id: str) -> HttpResponse:
         'is_edit': is_edit,
         'form': form
     }
-    if request.method != 'POST':
-        form = PostForm(instance=post)
     if post.author != request.user:
         return redirect('posts:profile', post.author)
     if not form.is_valid():
