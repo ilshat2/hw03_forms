@@ -94,16 +94,17 @@ def post_create(request: HttpRequest) -> HttpResponse:
     """
     title = 'Добавить запись'
     groups = Group.objects.all()
+    form = PostForm()
     context = {
         'title': title,
         'groups': groups,
+        'form': form,
     }
     if request.method != 'POST':
         return render(request, 'posts/create_post.html', context)
     form = PostForm(request.POST or None)
     post = form.save(commit=False)
     post.author = request.user
-    context['form'] = form
     if request.user != post.author:
         return render(request, 'posts/create_post.html', context)
     if not form.is_valid():
