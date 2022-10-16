@@ -25,6 +25,19 @@
   - на страницу профайла,
   - на страницу группы.
 
+Структура проекта:
+'''
+hw03_forms
+ ├── .gitignore         
+ ├── tests/             
+ ├── yatube/       <--  Рабочая папка с кодом проекта
+ ├── pytest.ini         
+ ├── README.md          Описание проекта 
+ ├── requirements.txt   Зависимости проекта 
+ ├── LICENSE            Лицензия
+ └── setup.cfg          Настройки тестов Практикума 
+'''
+                       
 # backend_community_homework
 
 [![CI](https://github.com/yandex-praktikum/hw03_forms/actions/workflows/python-app.yml/badge.svg?branch=master)](https://github.com/yandex-praktikum/hw03_forms/actions/workflows/python-app.yml)
