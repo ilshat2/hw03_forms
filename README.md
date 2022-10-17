@@ -28,7 +28,7 @@
 ### Структура проекта:
 ```
 ilshat2
- └── hw02_community
+ └── hw03_community
      ├── .gihub/workflows
      ├── tests/ 
      ├── yatube  <-- рабочая папка проекта с кодом проекта
